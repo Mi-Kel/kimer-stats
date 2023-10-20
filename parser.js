@@ -186,6 +186,7 @@ async function parse(matches, regions, from, to) {
     stats.players.highestDN = denies[denies.length-1];
     let heroDamage = getStat(matches, 'hero_damage');
     stats.players.highestHD = heroDamage[heroDamage.length-1];
+    stats.players.leastHD = heroDamage[0];
     let towerDamage = getStat(matches, 'tower_damage');
     stats.players.highestTD = towerDamage[towerDamage.length-1];
     let heroHealing = getStat(matches, 'hero_healing');

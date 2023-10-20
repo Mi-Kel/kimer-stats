@@ -1,9 +1,8 @@
 html {
-    font-family: 'Helvetica';
-    font-style: italic;
+    font-family: 'Futura';
     text-transform: uppercase;
-    color: white;
-    background-color: #719eed;
+    color: black;
+    background-color: #800020;
 }
 
 h1 {
@@ -23,10 +22,11 @@ h1 {
     margin-top: 30px;
     font-style: normal;
     font-size: 200%;
+	color: gold;
 }
 
 .subtitle {
-    font-family: 'Satisfy', cursive;
+    font-family: 'Verdana', cursive;
     text-transform: none;
     font-size: 300%;
 }
@@ -50,6 +50,8 @@ h1 {
 .gametitle {
     text-align: center;
     font-weight: bold;
+	color: gold;
+	font-size: 100%
 }
 
 .winner {
@@ -61,7 +63,7 @@ h1 {
 
 .vs {
     margin-top: 45px;
-    font-family: 'Satisfy', cursive;
+    font-family: 'Futura', cursive;
     color: red;
 }
 
@@ -120,6 +122,7 @@ h1 {
 .player {
     margin: 30px 10px 30px 10px;
     width: 200px;
+	color: gold;
 }
 
 .playerimgs {
@@ -143,3 +146,6 @@ h1 {
     height: 56px;
     object-fit: contain;
 }
+
+.playername {
+	color: whitesmoke;

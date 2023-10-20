@@ -19,7 +19,7 @@ mixin team(name, picture, win)
         .teamname= name
 
 mixin game(title, value, stats)
-    .vertical(class="game")
+   .vertical(class="game")
         .gametitle= title
         div= value
         .horizontal
@@ -43,15 +43,9 @@ html
         link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Poppins")
     body
         .vertical
-            h1 Clarity League
-            .season SEASON 0
-            .subtitle Sunday stats by Ernie
-            .horizontal
-                +game('Shortest game', shortestGame.duration, shortestGame)
-                +game('Least kills', leastKillsGame.kills, leastKillsGame)
-            .horizontal
-                +game('Longest game', longestGame.duration, longestGame)
-                +game('Most kills', mostKillsGame.kills, mostKillsGame)
+            h1 Dogcup
+            .season It's TI Time, Bitches!
+            .subtitle Chop chop
             .heroes MOST PICKED HEROES
             .horizontal
                 +hero(heroes[1].hero, heroes[1].count, heroes[1].picture, "second")
@@ -64,20 +58,22 @@ html
                 +hero(bans[0].hero, bans[0].count, bans[0].picture, "third")
             .heroes PLAYER ACHIEVEMENTS
             .horizontal
-                +player("Highest hero dmg", "highestHD", "hero_damage")
-                +player("Most deaths", "mostDeaths", "deaths")
-                +player("Most kills", "mostKills", "kills")
-                +player("Most assists", "mostAssists", "assists")
-                +player("Highest tower dmg", "highestTD", "tower_damage")
+                +player("Most Hero DMG", "highestHD", "hero_damage")
+                +player("Least Hero DMG", "leastHD", "hero_damage")
+                +player("Most Deaths", "mostDeaths", "deaths")
+                +player("Most Kills", "mostKills", "kills")
             .horizontal
-                +player("Highest GPM", "highestGPM", "gold_per_min")
-                +player("Highest XPM", "highestXPM", "xp_per_min")
-                +player("Most last hits", "highestLH", "last_hits")
-                +player("Most denies", "highestDN", "denies")
-                +player("Highest hero healing", "highestHH", "hero_healing")
+                +player("Most GPM", "highestGPM", "gold_per_min")
+                +player("Most XPM", "highestXPM", "xp_per_min")
+                +player("Most Assists", "mostAssists", "assists")
+                +player("Most Tower DMG", "highestTD", "tower_damage")
             .horizontal
-                +player("Animal cruelty", "couriers", "courier_kills")
-                +player("Fat Cat", "fatCat", "total_gold")
-                +player("Pauper", "pauper", "total_gold")
-                +player("Most runes yoinked", "runes", "rune_pickups")
-                +player("Most camps stacked", "stacks", "camps_stacked")
+                +player("Most Courier Kills", "couriers", "courier_kills")
+                +player("Most Last Hits", "highestLH", "last_hits")
+                +player("Most Denies", "highestDN", "denies")
+                +player("Most Hero Healing", "highestHH", "hero_healing")
+            .horizontal
+                +player("Most Gold", "fatCat", "total_gold")
+                +player("Least Gold", "pauper", "total_gold")
+                +player("Most Runes Taken", "runes", "rune_pickups")
+                +player("Most Camps Stacked", "stacks", "camps_stacked")            

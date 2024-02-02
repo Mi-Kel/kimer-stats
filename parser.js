@@ -200,6 +200,9 @@ async function parse(matches, regions, from, to) {
     let fatCat = getStat(matches, 'total_gold');
     stats.players.fatCat = fatCat[fatCat.length-1];
     stats.players.pauper = fatCat[0];
+    let timeDead = getStat(matches, 'life_state_dead');
+    stats.players.Tavern = timeDead[timeDead.length-1]
+    stats.players.Survivor = timeDead[0]
 
     let picks = matches
         .flatMap(match => match.players)

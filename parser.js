@@ -221,7 +221,7 @@ async function parse(matches, regions, from, to) {
     stats.players.Tavern = timeDead[timeDead.length-1]
     stats.players.Survivor = timeDead[0]
     let obsKilled = getStat(matches, "observer_kills");
-    stats.players.obsdewarded = obsKilled[obsKilled.length-1]
+    stats.players.obskills = obsKilled[obsKilled.length-1]
     let senPlaced = getStat(matches, "sen_placed");
     stats.players.senplaced = senPlaced[senPlaced.length-1]
 

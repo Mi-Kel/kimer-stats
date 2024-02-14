@@ -19,7 +19,7 @@ mixin team(name, picture, win)
         .teamname= name
 
 mixin game(title, value, stats)
-   .vertical(class="game")
+    .vertical(class="game")
         .gametitle= title
         div= value
         .horizontal
@@ -43,47 +43,44 @@ html
         link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Poppins")
     body
         .vertical
-            h1 Clariteeee
-            .season AUTO STATS
-            .subtitle Testing :)
+            h1 Clarity League
+            .subtitle Season 10 - Matchday Stats
             .horizontal
-                +game('Shortest game', shortestGame.duration, shortestGame)
-                +game('Least kills', leastKillsGame.kills, leastKillsGame)
+                +game('Shortest Game', shortestGame.duration, shortestGame)
+                +game('Least Kills', leastKillsGame.kills, leastKillsGame)
             .horizontal
-                +game('Longest game', longestGame.duration, longestGame)
-                +game('Most kills', mostKillsGame.kills, mostKillsGame)
-            .heroes MOST PICKED HEROES
+                +game('Longest Game', longestGame.duration, longestGame)
+                +game('Most Kills', mostKillsGame.kills, mostKillsGame)
+            .heroes Most Picked Heroes
             .horizontal
                 +hero(heroes[1].hero, heroes[1].count, heroes[1].picture, "second")
                 +hero(heroes[2].hero, heroes[2].count, heroes[2].picture, "first")
                 +hero(heroes[0].hero, heroes[0].count, heroes[0].picture, "third")
-            .heroes MOST BANNED HEROES
+            .heroes Most Banned Heroes
             .horizontal
                 +hero(bans[1].hero, bans[1].count, bans[1].picture, "second")
                 +hero(bans[2].hero, bans[2].count, bans[2].picture, "first")
                 +hero(bans[0].hero, bans[0].count, bans[0].picture, "third")
             .heroes PLAYER ACHIEVEMENTS
             .horizontal
-                +player("Most Hero DMG", "highestHD", "hero_damage")
-                +player("Least Hero DMG", "leastHD", "hero_damage")
+                +player("Highest Hero DMG", "highestHD", "hero_damage")
                 +player("Most Deaths", "mostDeaths", "deaths")
                 +player("Most Kills", "mostKills", "kills")
-                +player("Most Time Dead", "Tavern", "life_state_dead")
-            .horizontal
-                +player("Most GPM", "highestGPM", "gold_per_min")
-                +player("Most XPM", "highestXPM", "xp_per_min")
                 +player("Most Assists", "mostAssists", "assists")
-                +player("Most Tower DMG", "highestTD", "tower_damage")
-                +player("Most Dewards", "obsdewarded", "observer_kills")
+                +player("Highest Tower DMG", "highestTD", "tower_damage")
+                +player("Highest GPM", "highestGPM", "gold_per_min")
             .horizontal
-                +player("Most Courier Kills", "couriers", "courier_kills")
+                +player("Highest XPM", "highestXPM", "xp_per_min")
                 +player("Most Last Hits", "highestLH", "last_hits")
                 +player("Most Denies", "highestDN", "denies")
-                +player("Most Hero Healing", "highestHH", "hero_healing")
-                +player("Least Time Dead", "Survivor", "life_state_dead")
+                +player("Highest Hero Healing", "highestHH", "hero_healing")
+                +player("Shortest Time Dead", "Survivor", "life_state_dead")
+                +player("Longest Time Dead", "Tavern", "life_state_dead") 
             .horizontal
+                +player("Most Courier Kills", "couriers", "courier_kills")
+                +player("Most Observers Dewarded", "obsdewarded", "observer_kills")
                 +player("Most Gold", "fatCat", "total_gold")
                 +player("Least Gold", "pauper", "total_gold")
                 +player("Most Runes Taken", "runes", "rune_pickups")
                 +player("Most Camps Stacked", "stacks", "camps_stacked")
-                +player("Most Sentries Placed", "senplaced", "sen_placed")
+                 

@@ -145,7 +145,6 @@ async function parse(matches, regions, from, to) {
 
     
 
-    console.log(`b_match: ${b_matches.length}`);
     if(b_matches.length<1)
     {
         from=1705367420;
@@ -157,7 +156,6 @@ async function parse(matches, regions, from, to) {
         && match.endDateTime > from
         && match.endDateTime < to);
 
-    console.log(`match: ${matches.length}`);
     
     let durations = matches
         .map(match => ({ 
@@ -221,7 +219,7 @@ async function parse(matches, regions, from, to) {
     stats.players.Tavern = timeDead[timeDead.length-1]
     stats.players.Survivor = timeDead[0]
     let obsKilled = getStat(matches, "observer_kills");
-    stats.players.obskills = obsKilled[obsKilled.length-1]
+    stats.players.obsdewarded = obsKilled[obsKilled.length-1]
     let senPlaced = getStat(matches, "sen_placed");
     stats.players.senplaced = senPlaced[senPlaced.length-1]
 

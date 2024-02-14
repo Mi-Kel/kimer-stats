@@ -1,2 +1,2 @@
 cd 'C:\Github\kimer-stats'
-npm start
+nodemon server.js --watch restart --ext txt

@@ -109,14 +109,14 @@ h1 {
 }
 
 .teampic {
-    height: 60px;
-    width: 100px;
+    height: 120px;
+    width: 140px;
     object-fit: contain;
     border: solid white 2px;
 }
 
 .teamname {
-    font-size: 50%;
+    font-size: 75%;
 }
 
 .player {

@@ -137,10 +137,27 @@ function convertIdToHero(id) {
 
 async function parse(matches, regions, from, to) {
     let stats = {};
+    let b_matches = matches;
+    b_matches = b_matches.filter(match => 
+        regions.includes(match.regionId)
+        && match.endDateTime > from
+        && match.endDateTime < to);
+
+    
+
+    console.log(`b_match: ${b_matches.length}`);
+    if(b_matches.length<1)
+    {
+        from=1705367420;
+        to=Math.floor(Date.now() / 1000);
+    }
+
     matches = matches.filter(match => 
         regions.includes(match.regionId)
         && match.endDateTime > from
         && match.endDateTime < to);
+
+    console.log(`match: ${matches.length}`);
     
     let durations = matches
         .map(match => ({ 
@@ -203,6 +220,10 @@ async function parse(matches, regions, from, to) {
     let timeDead = getStat(matches, 'life_state_dead');
     stats.players.Tavern = timeDead[timeDead.length-1]
     stats.players.Survivor = timeDead[0]
+    let obsKilled = getStat(matches, "observer_kills");
+    stats.players.obsdewarded = obsKilled[obsKilled.length-1]
+    let senPlaced = getStat(matches, "sen_placed");
+    stats.players.senplaced = senPlaced[senPlaced.length-1]
 
     let picks = matches
         .flatMap(match => match.players)

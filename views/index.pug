@@ -43,9 +43,15 @@ html
         link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Poppins")
     body
         .vertical
-            h1 Dogcup
-            .season It's TI Time, Bitches!
-            .subtitle Chop chop
+            h1 Clariteeee
+            .season AUTO STATS
+            .subtitle Testing :)
+            .horizontal
+                +game('Shortest game', shortestGame.duration, shortestGame)
+                +game('Least kills', leastKillsGame.kills, leastKillsGame)
+            .horizontal
+                +game('Longest game', longestGame.duration, longestGame)
+                +game('Most kills', mostKillsGame.kills, mostKillsGame)
             .heroes MOST PICKED HEROES
             .horizontal
                 +hero(heroes[1].hero, heroes[1].count, heroes[1].picture, "second")
@@ -62,21 +68,22 @@ html
                 +player("Least Hero DMG", "leastHD", "hero_damage")
                 +player("Most Deaths", "mostDeaths", "deaths")
                 +player("Most Kills", "mostKills", "kills")
+                +player("Most Time Dead", "Tavern", "life_state_dead")
             .horizontal
                 +player("Most GPM", "highestGPM", "gold_per_min")
                 +player("Most XPM", "highestXPM", "xp_per_min")
                 +player("Most Assists", "mostAssists", "assists")
                 +player("Most Tower DMG", "highestTD", "tower_damage")
+                +player("Most Dewards", "obsdewarded", "observer_kills")
             .horizontal
                 +player("Most Courier Kills", "couriers", "courier_kills")
                 +player("Most Last Hits", "highestLH", "last_hits")
                 +player("Most Denies", "highestDN", "denies")
                 +player("Most Hero Healing", "highestHH", "hero_healing")
+                +player("Least Time Dead", "Survivor", "life_state_dead")
             .horizontal
                 +player("Most Gold", "fatCat", "total_gold")
                 +player("Least Gold", "pauper", "total_gold")
                 +player("Most Runes Taken", "runes", "rune_pickups")
-                +player("Most Camps Stacked", "stacks", "camps_stacked")  
-            .horizontal
-                +player("Survivor", "Survivor", "life_state_dead")
-                +player("Most time in Tavern", "Tavern", "life_state_dead")       
+                +player("Most Camps Stacked", "stacks", "camps_stacked")
+                +player("Most Sentries Placed", "senplaced", "sen_placed")

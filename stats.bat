@@ -1,0 +1,1 @@
+PowerShell.exe -NoExit -ExecutionPolicy Bypass -File "auto-stats.ps1"

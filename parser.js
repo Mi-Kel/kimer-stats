@@ -5,6 +5,7 @@ const fs = require('fs');
 
 const pageSize = 250;
 const odotaDelay = 2000;
+let count=0;
 
 const stratz = axios.create({
     baseURL: 'https://api.stratz.com/api/v1',
@@ -137,6 +138,8 @@ function convertIdToHero(id) {
 
 async function parse(matches, regions, from, to) {
     let stats = {};
+    count=count+1;
+    console.log(`Visitors: ${count}`);
     let b_matches = matches;
     b_matches = b_matches.filter(match => 
         regions.includes(match.regionId)

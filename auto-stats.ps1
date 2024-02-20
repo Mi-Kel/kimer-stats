@@ -1,2 +1,2 @@
 cd 'C:\Github\kimer-stats'
-nodemon server.js --watch restart --ext txt
+pm2 start server.js --cron-restart="0 1 * * *"

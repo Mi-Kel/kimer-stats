@@ -1,7 +1,9 @@
 mixin player(title, stat, value)
+    - var playerValue = players[stat][value];
+    - var playerString = (stat === "leastdeadperc" || stat === "mostdeadperc") ? playerValue + "%" : playerValue;
     .vertical(class="player")
         .gametitle= title
-        div= players[stat][value]
+        div= playerString
         .playerimgs(class={"win": players[stat].win})
             img(src=players[stat].steamAccount.avatar, class="playerpic")
             img(src=players[stat].hero.picture, class="heroportrait")
@@ -39,8 +41,8 @@ doctype html
 html
     head
         link(rel='stylesheet', href='/css/style.css', type='text/css')
-        link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Roboto")
         link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Chapaza")
+        link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Roboto")
     body
         .vertical
             h1 Clarity League
@@ -68,19 +70,24 @@ html
                 +player("Most Kills", "mostKills", "kills")
                 +player("Most Assists", "mostAssists", "assists")
                 +player("Highest Tower DMG", "highestTD", "tower_damage")
+            .horizontal
+                +player("Least DMG Taken", "leastdmgtaken", "damage_taken")
+                +player("Highest DMG Taken", "mostdmgtaken", "damage_taken")
                 +player("Highest GPM", "highestGPM", "gold_per_min")
+                +player("Most Gold", "fatCat", "total_gold")
+                +player("Most Runes Taken", "runes", "rune_pickups")               
             .horizontal
                 +player("Highest XPM", "highestXPM", "xp_per_min")
                 +player("Most Last Hits", "highestLH", "last_hits")
                 +player("Most Denies", "highestDN", "denies")
-                +player("Highest Hero Healing", "highestHH", "hero_healing")
-                +player("Shortest Time Dead", "Survivor", "life_state_dead")
-                +player("Longest Time Dead", "Tavern", "life_state_dead") 
+                +player("Least Time Dead", "leastdeadperc", "life_state_dead")
+                +player("Most Time Dead", "mostdeadperc", "life_state_dead")
             .horizontal
                 +player("Most Courier Kills", "couriers", "courier_kills")
                 +player("Most Observers Dewarded", "obsdewarded", "observer_kills")
-                +player("Most Gold", "fatCat", "total_gold")
+                //+player("Most Sentries Placed", "senplaced", "sen_placed")
                 +player("Least Gold", "pauper", "total_gold")
-                +player("Most Runes Taken", "runes", "rune_pickups")
                 +player("Most Camps Stacked", "stacks", "camps_stacked")
+                +player("Highest Hero Healing", "highestHH", "hero_healing")
+                
                  

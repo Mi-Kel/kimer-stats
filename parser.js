@@ -5,6 +5,7 @@ const fs = require('fs');
 
 const pageSize = 250;
 const odotaDelay = 2000;
+
 let count=0;
 
 const stratz = axios.create({
@@ -23,6 +24,7 @@ retry(opendota, { retries: 3 });
 
 
 const heroes = JSON.parse(fs.readFileSync('heroes.json'));
+
 
 const partition = (arr, fn) =>
     arr.reduce(
@@ -119,6 +121,43 @@ function getStat(matches, stat) {
         .sort((a, b) => a[stat] - b[stat]);
 }
 
+function getStatDMGTaken(matches, stat) {
+    return matches
+        .flatMap(match => match.players)
+        .map(player => {
+            let heroInfo = convertIdToHero(player.hero_id);
+            let updatedPlayer = { ...player };
+
+            if (heroInfo) {
+                let totalDamageTaken = Object.entries(player[stat])
+                    .filter(([key]) => key.startsWith('npc_dota_hero_') && key !== heroInfo.longname)
+                    .reduce((acc, [_, value]) => acc + value, 0);
+                updatedPlayer[stat] = totalDamageTaken;
+            }
+            
+            return updatedPlayer;
+        })
+        .sort((a, b) => a[stat] - b[stat]);
+}
+
+function getStatDEATH(matches, stat) {
+    let msz = matches
+        .map(match => ({
+            players: match.players.map(player => {
+                const percentageOfDuration = Math.round((player[stat] / match.durationSeconds) * 100);
+                return {
+                    ...player,
+                    [stat]: percentageOfDuration,
+                    percentageOfDuration
+                };
+            })
+        }))
+        .flatMap(match => match.players)
+        .sort((a, b) => a.percentageOfDuration - b.percentageOfDuration);
+    
+    return msz;
+}
+
 function timeToString(time) {
     let sign = time > 0 ? "" : "-";
     let date = new Date(null);
@@ -127,10 +166,13 @@ function timeToString(time) {
 }
 
 function convertIdToHero(id) {
+
     let hero = heroes.filter(h => h.id === Number(id))[0];
+
     return {
         id,
         hero: hero.localized_name, 
+        longname: hero.name,
         picture: `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${hero.name.slice(14)}.png`,
         portrait: `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/heroes/${hero.name.slice(14)}_vert.jpg`
     };
@@ -138,21 +180,21 @@ function convertIdToHero(id) {
 
 async function parse(matches, regions, from, to) {
     let stats = {};
-    count=count+1;
-    console.log(`Visitors: ${count}`);
     let b_matches = matches;
     b_matches = b_matches.filter(match => 
         regions.includes(match.regionId)
         && match.endDateTime > from
         && match.endDateTime < to);
 
-    
-
     if(b_matches.length<1)
     {
-        from=1705367420;
+        from=1605367420;
         to=Math.floor(Date.now() / 1000);
     }
+
+    count++;
+
+    console.log(`Visitors: ${count}`);
 
     matches = matches.filter(match => 
         regions.includes(match.regionId)
@@ -214,17 +256,24 @@ async function parse(matches, regions, from, to) {
     let stacks = getStat(matches, 'camps_stacked');
     stats.players.stacks = stacks[stacks.length-1];
     let couriers = getStat(matches, 'courier_kills');
-    stats.players.couriers = couriers[couriers.length-1]
+    stats.players.couriers = couriers[couriers.length-1];
     let fatCat = getStat(matches, 'total_gold');
     stats.players.fatCat = fatCat[fatCat.length-1];
     stats.players.pauper = fatCat[0];
     let timeDead = getStat(matches, 'life_state_dead');
-    stats.players.Tavern = timeDead[timeDead.length-1]
-    stats.players.Survivor = timeDead[0]
+    stats.players.Tavern = timeDead[timeDead.length-1];
+    stats.players.Survivor = timeDead[0];
     let obsKilled = getStat(matches, "observer_kills");
-    stats.players.obsdewarded = obsKilled[obsKilled.length-1]
+    stats.players.obsdewarded = obsKilled[obsKilled.length-1];
     let senPlaced = getStat(matches, "sen_placed");
-    stats.players.senplaced = senPlaced[senPlaced.length-1]
+    stats.players.senplaced = senPlaced[senPlaced.length-1];
+    let dmgTaken = getStatDMGTaken(matches, "damage_taken");
+    stats.players.mostdmgtaken = dmgTaken[dmgTaken.length-1];
+    stats.players.leastdmgtaken = dmgTaken[0];
+
+    let deadperc = getStatDEATH(matches, 'life_state_dead');
+    stats.players.leastdeadperc = deadperc[0];
+    stats.players.mostdeadperc = deadperc[deadperc.length-1];
 
     let picks = matches
         .flatMap(match => match.players)

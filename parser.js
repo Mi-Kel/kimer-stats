@@ -10,12 +10,12 @@ let count=0;
 
 const stratz = axios.create({
     baseURL: 'https://api.stratz.com/api/v1',
-    timeout: 10000,
+    timeout: 12000,
     headers: {'Authorization': `Bearer ${process.env.STRATZ_API_KEY}`}
 });
 const opendota = rateLimit(axios.create({
     baseURL: 'https://api.opendota.com/api',
-    timeout: 10000
+    timeout: 12000
 }), { maxRequests: 1, perMilliseconds: odotaDelay});
 stratz.interceptors.response.use(r => r.data, err => Promise.reject(err));
 opendota.interceptors.response.use(r => r.data, err => Promise.reject(err));
@@ -88,6 +88,7 @@ const fetchUnparsedGames = async (matches) => {
 
 async function getAllMatches(league) {
     let matches = await getAllMatchesFromStratz(league);
+    matches = matches.filter(m => m.id !== 7777629259);
 
     console.log(`Fetching ${matches.length} OpenDota matches\nEstimated time: ${odotaDelay / 1000 * matches.length}s`);
     let odota_matches = await Promise.all(matches.map(m => opendota.get(`/matches/${m.id}`)));
@@ -128,7 +129,7 @@ function getStatDMGTaken(matches, stat) {
             let heroInfo = convertIdToHero(player.hero_id);
             let updatedPlayer = { ...player };
 
-            if (heroInfo) {
+            if (heroInfo && player[stat]) {
                 let totalDamageTaken = Object.entries(player[stat])
                     .filter(([key]) => key.startsWith('npc_dota_hero_') && key !== heroInfo.longname)
                     .reduce((acc, [_, value]) => acc + value, 0);
